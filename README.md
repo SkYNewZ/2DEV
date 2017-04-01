@@ -16,4 +16,4 @@
 * prévoir les chiffres sans pavé numérique
 
 ![screenshot](http://lemairepro.fr/t.png)
-![screenshot2](http://lemairepro.fr/t2png)
+![screenshot2](http://lemairepro.fr/t2.png)
