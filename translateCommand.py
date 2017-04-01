@@ -1,9 +1,10 @@
+# coding: utf8
 # @Author: Quentin Lemaire
 # @Date:   2017-03-09T14:18:47+01:00
 # @Email:  quentin.lemaire@supinfo.com
 # @Filename: translateCommand.py
-# @Last modified by:   Quentin Lemaire
-# @Last modified time: 2017-03-14T15:39:01+01:00
+# @Last modified by:   SkYNewZ
+# @Last modified time: 2017-04-01T02:27:11+02:00
 # @License: 214520
 # @Copyright: SUPINFO
 

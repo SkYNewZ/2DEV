@@ -1,9 +1,10 @@
+# coding: utf8
 # @Author: Quentin Lemaire
 # @Date:   2017-02-27T20:28:53+01:00
 # @Email:  quentin.lemaire@supinfo.com
 # @Filename: globales.py
-# @Last modified by:   Quentin Lemaire
-# @Last modified time: 2017-03-14T17:16:15+01:00
+# @Last modified by:   SkYNewZ
+# @Last modified time: 2017-04-01T02:27:01+02:00
 # @License: 214520
 # @Copyright: SUPINFO
 
