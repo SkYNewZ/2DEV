@@ -4,7 +4,7 @@
 # @Email:  quentin.lemaire@supinfo.com
 # @Filename: translateCommand.py
 # @Last modified by:   SkYNewZ
-# @Last modified time: 2017-04-01T02:27:11+02:00
+# @Last modified time: 2017-04-01T15:20:00+02:00
 # @License: 214520
 # @Copyright: SUPINFO
 
@@ -43,8 +43,6 @@ def dissociate():
         tortue.moving(commandsList[commandeString], prop)
     # sinon, inscrire dans la console - PREVOIR INSCRIRE DANS L'HISTORIQUE
     else :
-        t = affichage.getInputString()
-        del t[-1]
-        del t[0]
+        t = affichage.getInputString()[1:-1]
         t = "".join(t)
         affichage.setInputString(['?', t,' = > u', 'n', 'k', 'n', 'o', 'w', ' ', 'c', 'o', 'm', 'm', 'a', 'n', 'd', '_'])
