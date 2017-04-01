@@ -4,7 +4,7 @@
 # @Email:  quentin.lemaire@supinfo.com
 # @Filename: globales.py
 # @Last modified by:   SkYNewZ
-# @Last modified time: 2017-04-01T03:21:55+02:00
+# @Last modified time: 2017-04-01T03:28:59+02:00
 # @License: 214520
 # @Copyright: SUPINFO
 
