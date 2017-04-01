@@ -4,7 +4,7 @@
 # @Email:  quentin.lemaire@supinfo.com
 # @Filename: translateCommand.py
 # @Last modified by:   SkYNewZ
-# @Last modified time: 2017-04-01T15:20:00+02:00
+# @Last modified time: 2017-04-01T15:23:03+02:00
 # @License: 214520
 # @Copyright: SUPINFO
 
