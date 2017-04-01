@@ -12,4 +12,3 @@
 -reste la commande REPEAT
 -prévoir le clavier qwerty
 -prévoir les chiffres sans pavé numérique
--test de git
