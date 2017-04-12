@@ -71,7 +71,7 @@ class TurtleClass:
         """
         if 0 <= x < 4:
             try:
-                prop = int (prop)
+                prop = int(prop)
             except Exception as e:
                 print(e)
                 x = -1
