@@ -1,9 +1,9 @@
 **2DEV - LOGO**
 ===============
 
-> Create a turtle which obey at your command line
+> Create a TurtleClass which obey at your command line
 
-*List of commandes :*
+*List of commands :*
 
  - AV *pixels*
  - RE *pixels*

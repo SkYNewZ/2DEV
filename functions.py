@@ -14,79 +14,105 @@ import pygame
 from globales import *
 from pygame import *
 from translateCommand import dissociate
+
 pygame.init()
 
-# fonction servant a recharger l'affichage
-def reloadScreen():
+
+def reload_screen():
+    """
+    refresh screen
+    :return: 
+    :rtype: 
+    """
     pygame.display.update()
     window.blit(background, (0, 0))
-    tortue.drawLines()
-    if tortue.getHiddenOrNot(): window.blit(tortue.getImg(), (tortue.getX()-25, tortue.getY() - 25-72))
-    affichage.DisplayThis()
-    history.displayHistory()
-    if tortue.getHelp() : window.blit(tortue.getHelpImg(), (40, 100))
+    turtle_object.draw_lines()
+    if turtle_object.getHiddenOrNot():
+        window.blit(turtle_object.getImg(), (turtle_object.getX() - 25, turtle_object.getY() - 25 - 72))
+    display_object.display_this()
+    history.display_history()
+    if turtle_object.getHelp():
+        window.blit(turtle_object.getHelpImg(), (40, 100))
 
 
-# fonction servant a renvoyer le caractrère tapé au clavier et l'ajouter a la liste
-def wichLetter(key):
-    # tableau de référence pour les lettres entrées
-    keyCode = [113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 97, 115, 100, 102, 103, 104, 106, 107, 108, 59, 122, 120, 99, 118, 98, 110, 256, 257, 258, 259, 260, 261, 262, 263, 264, 265]
-    letter = ["A", "Z", "E", "R", "T", "Y", "U", "I", "O", "P", "Q", "S", "D", "F", "G", "H", "J", "K", "L", "M", "W", "X", "C", "V", "B", "N", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
-    actionsKey = [8, 13, 32, 273]
+def which_letter(key_letter):
+    """
+    send character and append to the list
+    :param key_letter: letters's key
+    :type key_letter: int
+    :return: 
+    :rtype: 
+    """
+    "refer array"
+    key_code = [113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 97, 115, 100, 102, 103, 104, 106, 107, 108, 59, 122,
+               120, 99, 118, 98, 110, 256, 257, 258, 259, 260, 261, 262, 263, 264, 265]
+    letter = ["A", "Z", "E", "R", "T", "Y", "U", "I", "O", "P", "Q", "S", "D", "F", "G", "H", "J", "K", "L", "M", "W",
+              "X", "C", "V", "B", "N", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+    actions_key = [8, 13, 32, 273]
 
-    # si la lettre est valide dans l'un des 2 cas, il la retourne
-    # si c'est une lettre ou un chiffre
-    if (key in keyCode):
-        affichage.delInputString(-1)
-        idx = keyCode.index(key)
-        # ajout de la lettre dans le tableau
-        affichage.appendInputString(letter[idx])
-        affichage.appendInputString("_")
+    "letter or number"
+    if key_letter in key_code:
+        display_object.delInputString(-1)
+        idx = key_code.index(key_letter)
+        display_object.appendInputString(letter[idx])
+        display_object.appendInputString("_")
 
-    # si c'est la touche effacer, entrée, fleche du haut ou espace
-    elif (key in actionsKey):
-            # effacer
-            if (key == 8): deleteInput()
+    elif key_letter in actions_key:
+        "backspace"
+        if key_letter == 8:
+            delete_input()
 
-            #space
-            if (key == 32) :
-                affichage.delInputString(-1)
-                affichage.appendInputString(" ")
-                affichage.appendInputString("_")
+        "space"
+        if key_letter == 32:
+            display_object.delInputString(-1)
+            display_object.appendInputString(" ")
+            display_object.appendInputString("_")
 
-            #valider
-            if (key == 13):
-                validate()
+        "enter"
+        if key_letter == 13:
+            validate()
 
-            # rappel commande
-            if key == 273:
-                pass
+        "upper"
+        if key_letter == 273:
+            pass
 
-    # sinon, il ne fait rien - gestion de l'erreur touche inconnue
-    else :
+    else:
+        "if error, do nothing, just pass"
         pass
 
 
-#lorsque qu'on appui sur effacer - effacer le dernier caractère
-def deleteInput():
-    if (len(affichage.getInputString()) > 2) :
-        affichage.delInputString(-2)
+def delete_input():
+    """
+    delete last character
+    :return: 
+    :rtype: 
+    """
+    if len(display_object.getInputString()) > 2:
+        display_object.delInputString(-2)
 
 
-# effacer précedente commande - effacer la liste en laissant ? et _
-def cleanPrompt():
-    while (len(affichage.getInputString()) > 1):
-        affichage.delInputString(-1)
-    affichage.appendInputString("_")
+def clean_prompt():
+    """
+    delete "_" and "?"
+    :return: 
+    :rtype: 
+    """
+    while len(display_object.getInputString()) > 1:
+        display_object.delInputString(-1)
+    display_object.appendInputString("_")
 
-# actions après la touche entrée
+
 def validate():
-
-    # dissocier les commandes et continuer pour l'execution
+    """
+    enter key, do rest   
+    :return: none
+    :rtype: none
+    """
+    "dissociate command and property"
     dissociate()
 
-    # historique - effectué le roulement
-    history.drawHistory(affichage.getInputString())
+    "do history"
+    history.draw_history(display_object.getInputString())
 
-    # clean previous command
-    cleanPrompt()
+    "clean previous command"
+    clean_prompt()

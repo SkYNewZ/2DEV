@@ -12,7 +12,13 @@ from globales import *
 from pygame import *
 from functions import *
 
+
 def main():
+    """
+    main function
+    :return: 
+    :rtype: 
+    """
     game = 1
     while game:
         for event in pygame.event.get():
@@ -20,11 +26,11 @@ def main():
                 game = 0
 
             if event.type == KEYDOWN:
-                # lance l'execution de reconnaissance de la lettre et effectue les opérations en fonction
-                letter = wichLetter(event.key)
+                # send letters's key
+                which_letter(event.key)
 
             # flip screen
-            reloadScreen()
+            reload_screen()
 
 if __name__ == '__main__':
     main()

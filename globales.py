@@ -11,123 +11,184 @@
 
 import pygame
 import math
+
 pygame.init()
 
-# affichage initiale
+"initial display"
 window = pygame.display.set_mode((720, 720))
 pygame.display.set_caption('LOGO')
 background = pygame.image.load("background.png").convert()
 window.blit(background, (0, 0))
 
-class tortue():
-    """classe comportant tous les attributs et toutes les méthodes correspondants, déplacements de la tortue et calculs"""
-    def __init__(self):
-        # _____ATTRIBUTS_____
 
-        # taille de l'image tortue
+class TurtleClass:
+    """turtle object, with moving and display"""
+
+    def __init__(self):
+        """
+        constructor
+        """
+        "_____ATTRIBUTE_____"
+
+        "size of turtle image"
         self.dimensions_x = 50
         self.dimensions_y = 50
-        self.img = pygame.image.load("turtle.png").convert_alpha()
+        self.img = pygame.image.load("TurtleClass.png").convert_alpha()
 
-        # centre de l'écran
-        self.x = 720/2
-        self.y = 720/2
+        "center of screen"
+        self.x = 720 / 2
+        self.y = 720 / 2
 
-        # attibut de l'angle
+        "attribute of angle"
         self.angle = 0
 
-        # traits et affichage
+        "display and lines"
         self.width = 1
         self.pencil = True
         self.HiddenTurtle = True
         self.color = "FFFFFF"
 
-        # tableaux pour stockages des coordonées pour affichage des traits, par défaut
+        "array for trace lines"
         self.x_1 = []
         self.y_1 = []
         self.x_2 = []
         self.y_2 = []
         self.tabColor = []
 
-        # screen commandes
-        self.commandes = pygame.image.load("command_list.png").convert_alpha()
+        self.commands = pygame.image.load("command_list.png").convert_alpha()
         self.displayHelp = False
-        # ____FIN ATTRIBUS____
+        "____FIN ATTRIBUTES____"
 
-    # associe la commande avec l'action -> prop = proprietes pour les commandes (pixel, angle...)
-    def moving(self, x, prop):
-        # convertir en int la prop seulement si c'est pour avancer ou tourner
-        if x >= 0 and x<4:
+    def moving (self, x, prop):
+        """
+        associate command with action and give properties
+        :param x: command
+        :type x: string
+        :param prop: color or coordinate or distance
+        :type prop: string or int
+        :return: 
+        :rtype: 
+        """
+        if 0 <= x < 4:
             try:
-                prop = int(prop)
+                prop = int (prop)
             except Exception as e:
                 print(e)
                 x = -1
 
-        # déplacements
-        if x == 0 :
-            self.moveForward(prop)
-            if self.pencil : self.tabColor.append(self.convertHexToRgb(self.color))
-        if x == 1 :
-            self.moveBackward(prop)
-            if self.pencil : self.tabColor.append(self.convertHexToRgb(self.color))
+        "moves"
+        if x == 0:
+            self.move_forward(prop)
+            if self.pencil:
+                self.tabColor.append(self.convertHexToRgb(self.color))
+        if x == 1:
+            self.move_backward (prop)
+            if self.pencil:
+                self.tabColor.append(self.convertHexToRgb(self.color))
 
-        # rotation 2 => Droite; 3 => Gauche
-        if x == 2 : self.rotate(-1 * prop)
-        if x == 3 : self.rotate(prop)
+        """
+        Rotate
+        2 => Right
+        3 => Left
+        """
+        if x == 2:
+            self.rotate(-1 * prop)
+        if x == 3:
+            self.rotate(prop)
 
-        # changer la couleur
-        if x == 4 : self.setColor("".join(prop))
+        """Change color"""
+        if x == 4:
+            self.setColor("".join(prop))
 
-        # écriture ou non 5 => pas de crayon; 6 => crayon activé
-        if x == 5 : self.pencil = False
-        if x == 6 : self.pencil = True
+        """
+        Write or not
+        5=> not write
+        6=> write
+        """
+        if x == 5:
+            self.pencil = False
+        if x == 6:
+            self.pencil = True
 
-        # clean traits, replacer la tortue au centre et face vers le haut
-        if x == 7 : self.cleanTurtle()
+        """clean traits, replace the turtle et face upward"""
+        if x == 7:
+            self.clean_turtle ()
 
-        # afficher ou masquer la tortue
-        # 8 => masquer; 9 => afficher
-        if x == 8 : self.displayTurtle(8)
-        if x == 9 : self.displayTurtle(9)
+        """
+        display or not the turtle
+        8 => hide
+        9 => display
+        """
+        if x == 8:
+            self.displayTurtle(8)
+        if x == 9:
+            self.displayTurtle(9)
 
-        # help or exit
-        if x == 10 : self.changeHelp()
+        """help or exit"""
+        if x == 10:
+            self.display_help()
 
-    # rotation dans les DEUX sens
     def rotate(self, x):
-        # rechargement de l'image pour éviter les mauvais affichages
-        self.img = pygame.image.load("turtle.png").convert_alpha()
+        """
+        rotation
+        :param x: degrees
+        :type x: int
+        :return: 
+        :rtype: 
+        """
 
-        # incrémentation de l'angle
+        """reload the turtle image"""
+        self.img = pygame.image.load("TurtleClass.png").convert_alpha ()
+
+        """increase angle"""
         self.angle += x
-        # modula 360 pour rester dans un cercle complet (360°)
+        """modulo 360 to stay in a circle(360°)"""
         self.angle %= 360
         self.setImg(pygame.transform.rotate(self.img, self.angle))
 
-    # affiche ou masque l'aide
-    def changeHelp(self):
-        # si l'affichage du l'aide est activé, le desactiver
+    def display_help(self):
+        """
+        hide or display help
+        :return: 
+        :rtype: 
+        """
+        """if help displayed, hide it
+        if help hidden, display it"""
         if self.displayHelp:
             self.displayHelp = False
-        # si l'affichage du l'aide est désactivé, l'activer
-        else:
+
+        elif not self.displayHelp:
             self.displayHelp = True
 
-    # affiche ou masque la tortue
-    def displayTurtle(self, x):
-        # le x sert a faire la différence entre afficher et masquer. # 8 => masquer; 9 => afficher
-        # si la tortue est affiché
+    def display_turtle(self, x):
+        """
+        hide or display the turtle
+        :param self: 
+        :type self: 
+        :param x: id help
+        :type x: int
+        :return: 
+        :rtype: 
+        """
+        """
+        8 => hide
+        9 => display
+        """
+
         if self.HiddenTurtle and x == 8:
             self.HiddenTurtle = False
-        # si la tortue est maquée
+
         elif self.HiddenTurtle == False and x == 9:
             self.HiddenTurtle = True
 
-    # nettoyer l'écran, reset les tableaux des lignes et replace la tortue vers le haut
-    def cleanTurtle(self):
-        self.x = 720/2
-        self.y = 720/2
+    def clean_turtle(self):
+        """
+        clean turtle and place face upward
+        :return: 
+        :rtype: 
+        """
+        self.x = 720 / 2
+        self.y = 720 / 2
         self.angle = 0
         self.color = "FFFFFF"
         self.x_1 = []
@@ -135,10 +196,16 @@ class tortue():
         self.x_2 = []
         self.y_2 = []
         self.tabColor = []
-        self.img = pygame.image.load("turtle.png").convert_alpha()
+        self.img = pygame.image.load("TurtleClass.png").convert_alpha ()
 
-    # méthode pour avancer la tortue
-    def moveForward(self, x):
+    def move_forward(self, x):
+        """
+        move upward TurtleClass
+        :param x: distance
+        :type x: int
+        :return: 
+        :rtype: 
+        """
 
         # A
         # | \
@@ -154,159 +221,300 @@ class tortue():
         # |___________\
         # B             C
 
-        # copie des anciennes coordonnées - soustraction en y pour le décalage de la surface noire
+        "copy old coordinates - subtract pour black surface"
         if self.pencil:
             self.x_1.append(self.x)
             self.y_1.append(self.y - 70)
 
-        # calcul des nouvelles coordonées
-        self.x = self.x + x * math.cos(math.radians(self.angle))
-        self.y = self.y - x * math.sin(math.radians(self.angle))
+        "new coordinates"
+        self.x = self.x + x * math.cos (math.radians (self.angle))
+        self.y = self.y - x * math.sin (math.radians (self.angle))
 
-        # copie des nouvelle coordonées pour tracer les lignes
+        "copy for drawing lines"
         if self.pencil:
-            self.x_2.append(self.x)
-            self.y_2.append(self.y - 70)
+            self.x_2.append (self.x)
+            self.y_2.append (self.y - 70)
 
-
-    # méthode pour reculer la photo
-    def moveBackward(self, x):
-        # copie des anciennes coordonnées - soustraction pour décalage de la surface noire
+    def move_backward(self, x):
+        """
+        move backward TurtleClass
+        :param x: distance
+        :type x: int
+        :return: 
+        :rtype: 
+        """
+        "copy old coordinates"
         if self.pencil:
             self.x_1.append(self.x)
             self.y_1.append(self.y - 70)
 
-        # calcul des nouvelles coordonées
-        self.x = self.x - x * math.cos(math.radians(self.angle))
-        self.y = self.y + x * math.sin(math.radians(self.angle))
+        "new coordinates"
+        self.x = self.x - x * math.cos (math.radians (self.angle))
+        self.y = self.y + x * math.sin (math.radians (self.angle))
 
-        # copie des nouvelle coordonées
+        "copy new coordinates"
         if self.pencil:
             self.x_2.append(self.x)
             self.y_2.append(self.y - 70)
 
+    def draw_lines(self):
+        """
+        draw knew lines
+        :return: 
+        :rtype: 
+        """
+        for i in range(len (self.x_1)):
+            pygame.draw.line(window, self.tabColor[i], (self.x_1[i], self.y_1[i]), (self.x_2[i], self.y_2[i]),
+                             self.width)
 
-    # méthode pour dessiner toutes les lignes renseignées
-    def drawLines(self):
-        for i in range(len(self.x_1)) : pygame.draw.line(window, self.tabColor[i], (self.x_1[i], self.y_1[i]), (self.x_2[i], self.y_2[i]), self.width)
-
-
-    # début getter et setter
-    # ____________________________________
+    """Setter & getters"""
     def getX(self):
+        """
+        get coordinate x
+        :return: coordinate x
+        :rtype: int
+        """
         return self.x
 
     def getY(self):
+        """
+        get coordinate y
+        :return: coordinate y
+        :rtype: int
+        """
         return self.y
 
     def getAngle(self):
+        """
+        get angle
+        :return: angle
+        :rtype: int
+        """
         return self.angle
 
     def getImg(self):
+        """
+        get image
+        :return: object image
+        :rtype: object
+        """
         return self.img
 
     def setX(self, arg):
+        """
+        set coordinate x
+        :param arg: coordinate x
+        :type arg: int
+        :return: 
+        :rtype: 
+        """
         self.x = arg
 
     def setY(self, arg):
+        """
+        set coordinate y
+        :param arg: coordinate y
+        :type arg: int
+        :return: 
+        :rtype: 
+        """
         self.y = arg
 
     def setAngle(self, arg):
+        """
+        set angle
+        :param arg: angle
+        :type arg: int
+        :return: 
+        :rtype: 
+        """
         self.angle = arg
 
     def setImg(self, arg):
+        """
+        set image to reload
+        :param arg: image
+        :type arg: object
+        :return: 
+        :rtype: 
+        """
         self.img = arg
 
     def getHelp(self):
+        """
+        know if help is display
+        :return: 
+        :rtype: 
+        """
         return self.displayHelp
 
     def getHelpImg(self):
-        return self.commandes
+        """
+        get help image
+        :return: help image
+        :rtype: object
+        """
+        return self.commands
 
     def getHiddenOrNot(self):
+        """
+        return if turtle is displayed
+        :return: turtle
+        :rtype: object
+        """
         return self.HiddenTurtle
 
     def getColor(self):
-        #  return self.color
-        return self.convertHexToRgb(self.color)
+        """
+        return color
+        :return: color
+        :rtype: string
+        """
+        return self.convertHexToRgb (self.color)
 
-    # défini la couleur
-    def setColor(self, x):
+    def setColor (self, x):
+        """
+        set color
+        :param x: color
+        :type x: string
+        :return: 
+        :rtype: 
+        """
         self.color = x
 
     def convertHexToRgb(self, value):
+        """
+        convert string HEX in RGB
+        :param value: color (HEX)
+        :type value: string
+        :return: color (RGB)
+        :rtype: tuple
+        """
         try:
-            c = tuple(int(value[i:i+2], 16) for i in (0, 2 ,4))
+            c = tuple (int (value[i:i + 2], 16) for i in (0, 2, 4))
             return c
         except Exception as e:
             print(e)
+    """end setters & getters"""
 
 
-    # _________________________________
-    # fin getter setter
+class History:
+    """
+    display and organise history
+    """
 
-class History():
-    """afficher et organiser les différents historiques"""
-    def __init__(self):
-        # deux tableaux pour stocker les historiques
+    def __init__ (self):
+        """
+        stock histories
+        """
         self.a = []
         self.b = []
 
         self.color = (255, 255, 255)
 
-    # organiser les historiques, faire les changement du plus récent au plus ancien - recoit un tableau en parametre
-    def drawHistory(self, arg):
+    def draw_history(self, arg):
+        """
+        organise histories, old -> last
+        :param arg: array history
+        :type arg: array
+        :return: 
+        :rtype: 
+        """
         self.b = self.a[:]
         self.a = arg[:]
         del self.a[-1]
-    # afficher les historiques
-    def displayHistory(self):
-        # display history
-        fontObj = pygame.font.Font('freesansbold.ttf',18)
-        string = fontObj.render("".join(self.a),True,self.color)
-        window.blit(string,(affichage.getX(), 680))
-        string = fontObj.render("".join(self.b),True,self.color)
-        window.blit(string,(affichage.getX(), 660))
+
+    def display_history(self):
+        """
+        display histories
+        :return: 
+        :rtype: 
+        """
+        font_obj = pygame.font.Font('freesansbold.ttf', 18)
+        string = font_obj.render("".join (self.a), True, self.color)
+        window.blit(string, (display_object.getX(), 680))
+        string = font_obj.render("".join(self.b), True, self.color)
+        window.blit(string, (display_object.getX(), 660))
 
 
-class Display():
-    """classe pour tout ce qui concerne les affichages en general"""
+class Display ():
+    """display"""
+
     def __init__(self):
-        self.x_Diplay = 5
-        self.y_Diplay = 700
+        self.x_display = 5
+        self.y_display = 700
         self.police = pygame.font.Font('freesansbold.ttf', 18)
         self.color = (255, 255, 255)
         self.inputString = ["?", "_"]
 
-    # affiche le tableau inputString dans la console du jeu
-    def DisplayThis(self):
-        objetWrite = self.police.render("".join(self.inputString),True,self.color)
-        window.blit(objetWrite,(self.x_Diplay, self.y_Diplay))
+    def display_this(self):
+        """
+        display shell
+        :return: 
+        :rtype: 
+        """
+        objet_write = self.police.render("".join (self.inputString), True, self.color)
+        window.blit(objet_write, (self.x_display, self.y_display))
 
-    # _____GETTER ET SETTER______
+    "GETTER & SETTER"
 
     def getX(self):
-        return self.x_Diplay
+        """
+        
+        :return: x
+        :rtype: int
+        """
+        return self.x_display
 
     def getY(self):
-        return self.y_Diplay
+        """
+        get y display for history
+        :return: y
+        :rtype: int
+        """
+        return self.y_display
 
     def getInputString(self):
+        """
+        return array of shell
+        :return: inputString
+        :rtype: array
+        """
         return self.inputString
 
-    # redefini le tableau de caractère
     def setInputString(self, x):
+        """
+        refresh shell
+        :param x: replacement
+        :type x: array
+        :return: 
+        :rtype: 
+        """
         self.inputString = x
 
     def appendInputString(self, x):
-        self.inputString.append(x)
+        """
+        append at the end of inputString
+        :param x: something
+        :type x: int, string
+        :return: 
+        :rtype: 
+        """
+        self.inputString.append (x)
 
     def delInputString(self, x):
+        """
+        delete something from the array
+        :param x: index
+        :type x: int
+        :return: 
+        :rtype: 
+        """
         del self.inputString[x]
-    # _____FIN GETTER ET SETTER______
+        # _____FIN GETTER ET SETTER______
 
 
-# instance des 3 objets
-tortue = tortue()
+"Create instances"
+turtle_object = TurtleClass()
 history = History()
-affichage = Display()
+display_object = Display()

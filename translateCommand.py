@@ -13,36 +13,42 @@ import copy
 from globales import *
 from pygame import *
 
-# dissocier la commande et les proprietes
-def dissociate():
-    # copie du tableau en gardant que la commande
-    tab = affichage.getInputString()[1:-1]
 
-    # dissocier la commande des proprietes
+def dissociate():
+    """
+    dissociate command and property
+    :return: 
+    :rtype: 
+    """
+    "copy array"
+    tab = display_object.getInputString ()[1:-1]
+
+    "dissociate command and properties"
     prop = []
-    commande = []
-    tab_courant = commande
+    command = []
+    current_tab = command
     for i in range(len(tab)):
         b = True
-        if (tab[i] == " "):
-            tab_courant = prop
+        if tab[i] == " ":
+            current_tab = prop
             b = False
-        if (b):
-            tab_courant.append(tab[i])
+        if b:
+            current_tab.append(tab[i])
 
-    # tranfromer les données pour les exploiter
-    commandeString = "".join(commande)
+    "transform date to exploit"
+    command = "".join(command)
     prop = "".join(prop)
 
-    # dictionnaire des commandes - pour association avec les différentes fonctions
-    commandsList = dict()
-    commandsList = {"AV" : 0, "RE" : 1, "TD" : 2, "TG" : 3, "FCC" : 4, "LC" : 5, "BC" : 6, "VE" : 7, "CT" : 8, "MT" : 9, "HELP" : 10}
+    "associate command list"
+    commands_list = {"AV": 0, "RE": 1, "TD": 2, "TG": 3, "FCC": 4, "LC": 5, "BC": 6, "VE": 7,
+                     "CT": 8, "MT": 9, "HELP": 10}
 
-    # si présent dans la liste, on continue
-    if commandeString in commandsList:
-        tortue.moving(commandsList[commandeString], prop)
-    # sinon, inscrire dans la console - PREVOIR INSCRIRE DANS L'HISTORIQUE
-    else :
-        t = affichage.getInputString()[1:-1]
+    "if in the list, continue"
+    if command in commands_list:
+        turtle_object.moving(commands_list[command], prop)
+    else:
+        "else, error in shell"
+        t = display_object.getInputString()[1:-1]
         t = "".join(t)
-        affichage.setInputString(['?', t,' = > u', 'n', 'k', 'n', 'o', 'w', ' ', 'c', 'o', 'm', 'm', 'a', 'n', 'd', '_'])
+        display_object.setInputString(
+            ['?', t, ' = > u', 'n', 'k', 'n', 'o', 'w', ' ', 'c', 'o', 'm', 'm', 'a', 'n', 'd', '_'])
