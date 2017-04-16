@@ -120,9 +120,9 @@ class TurtleClass:
         9 => display
         """
         if x == 8:
-            self.displayTurtle(8)
+            self.display_turtle(8)
         if x == 9:
-            self.displayTurtle(9)
+            self.display_turtle(9)
 
         """help or exit"""
         if x == 10:
