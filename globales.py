@@ -59,11 +59,11 @@ class TurtleClass:
         self.displayHelp = False
         "____FIN ATTRIBUTES____"
 
-    def moving (self, x, prop):
+    def moving(self, x, prop):
         """
         associate command with action and give properties
         :param x: command
-        :type x: string
+        :type x: int
         :param prop: color or coordinate or distance
         :type prop: string or int
         :return: 
@@ -82,7 +82,7 @@ class TurtleClass:
             if self.pencil:
                 self.tabColor.append(self.convertHexToRgb(self.color))
         if x == 1:
-            self.move_backward (prop)
+            self.move_backward(prop)
             if self.pencil:
                 self.tabColor.append(self.convertHexToRgb(self.color))
 
@@ -112,7 +112,7 @@ class TurtleClass:
 
         """clean traits, replace the turtle et face upward"""
         if x == 7:
-            self.clean_turtle ()
+            self.clean_turtle()
 
         """
         display or not the turtle
@@ -127,6 +127,21 @@ class TurtleClass:
         """help or exit"""
         if x == 10:
             self.display_help()
+
+        """repete [command]"""
+        if x == 11:
+            times = []
+            command = []
+            command_start = ''
+            for letter in prop:
+                if letter != '[':
+                    times.append(letter)
+                else:
+                    command_start = prop.index(letter)
+                    break
+            for i in range(command_start + 1, prop.index("]"), 1):
+                command.append(prop[i])
+            self.repete(int(''.join(times)), ''.join(command))
 
     def rotate(self, x):
         """
@@ -266,6 +281,16 @@ class TurtleClass:
         for i in range(len (self.x_1)):
             pygame.draw.line(window, self.tabColor[i], (self.x_1[i], self.y_1[i]), (self.x_2[i], self.y_2[i]),
                              self.width)
+
+    def repete(self, times, command):
+        """
+        repete function
+        :param times: int
+        :param command: string
+        :return: 
+        """
+        for char in command:
+            print(char, char.isalpha())
 
     """Setter & getters"""
     def getX(self):

@@ -21,7 +21,7 @@ def dissociate():
     :rtype: 
     """
     "copy array"
-    tab = display_object.getInputString ()[1:-1]
+    tab = display_object.getInputString()[1:-1]
 
     "dissociate command and properties"
     prop = []
@@ -41,14 +41,20 @@ def dissociate():
 
     "associate command list"
     commands_list = {"AV": 0, "RE": 1, "TD": 2, "TG": 3, "FCC": 4, "LC": 5, "BC": 6, "VE": 7,
-                     "CT": 8, "MT": 9, "HELP": 10}
+                     "CT": 8, "MT": 9, "HELP": 10, "REPETE": 11}
+
+    repete_validation = 1
+    error = [' = > u', 'n', 'k', 'n', 'o', 'w', ' ', 'c', 'o', 'm', 'm', 'a', 'n', 'd']
+    if command == "REPETE" and len(prop) <= 0 or "]" not in prop or "[" not in prop:
+        repete_validation = 0
+        error = [' = > argument missing']
 
     "if in the list, continue"
-    if command in commands_list:
+    if command in commands_list and repete_validation:
         turtle_object.moving(commands_list[command], prop)
     else:
         "else, error in shell"
         t = display_object.getInputString()[1:-1]
         t = "".join(t)
         display_object.setInputString(
-            ['?', t, ' = > u', 'n', 'k', 'n', 'o', 'w', ' ', 'c', 'o', 'm', 'm', 'a', 'n', 'd', '_'])
+            ['?', t, "".join(error), '_'])
