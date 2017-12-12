@@ -29,12 +29,6 @@ Then do ```python3 main.py```
 
 Let's play ! :wink:
 
-![screenshot](http://lemairepro.fr/t.png)
-
-![screenshot2](http://lemairepro.fr/t2.png)
-
-![screenshot3](http://lemairepro.fr/t3.png)
-
 > Author: Debuisson Jean & Quentin Lemaire
 > 
 > Email: quentin.lemaire@supinfo.com
