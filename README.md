@@ -21,7 +21,7 @@
 To run this program, you need python3 and pygame1.9.3 installed :
 - On debian distros 
     - do ```sudo apt install python3 && sudo apt install pip```
-    - ```pip install python``` or ```sudo apt install python3-pygame```
+    - ```pip3 install pygame``` or ```sudo apt install python3-pygame```
 
 - On Windows guests, go to [python](https://www.python.org/downloads/release/python-350/) and [pygame](http://www.pygame.org/download.shtml) website
 
